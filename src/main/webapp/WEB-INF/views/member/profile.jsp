@@ -39,6 +39,7 @@
 	</div>
 	<div>
 		<a href="edit" class="btn-floating btn btn-primary btn-sm">정보수정</a>
-		<a href="changePassword" class="btn-floating btn btn-primary btn-sm">비밀번호변경</a>
+		<a href="changePassword" class="btn-floating btn btn-warning btn-sm">비밀번호변경</a>
+		<a href="quit" class="btn-floating btn btn-danger btn-sm">회원탈퇴</a>
 	</div>
 </div>

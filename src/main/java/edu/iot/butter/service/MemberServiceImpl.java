@@ -26,9 +26,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public boolean checkId(String userId) throws Exception {
-//		System.out.println(userId);
 		Member m = dao.selectOne(userId);
-//		System.out.println(m);
 		return m != null;
 	}
 
@@ -36,7 +34,24 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public boolean add(Member member) throws Exception {
 		int result = dao.insert(member);
-		return (result == 1);
+		return result==1;
 	}
+
+	@Transactional
+	@Override
+	public boolean update(Member member) throws Exception {
+		int result = dao.update(member);
+		return result==1;
+	}
+
+	@Override
+	public Member getMember(String userId) throws Exception {
+		Member member = dao.selectOne(userId);
+		return member;
+	}
+	
+	
+	
+	
 
 }

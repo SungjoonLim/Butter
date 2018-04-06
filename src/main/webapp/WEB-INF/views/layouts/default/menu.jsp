@@ -44,7 +44,7 @@ ul>li {
 			</c:when>
 			<c:otherwise>
 				<ul>
-					<li><a href="${root}member/profile"><i class="fa fa-sign-in-alt"></i> ${USER.userId}&nbsp;정보수정</a></li>
+					<li><a href="${root}member/profile"><i class="fa fa-user"></i>&nbsp;&nbsp;${USER.userId}님</a></li>
 					<li><a href="${root}logout"><i class="fa fa-sign-out-alt"></i>&nbsp;로그아웃</a></li>
 				</ul>
 			</c:otherwise>

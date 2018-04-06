@@ -31,7 +31,7 @@
 		</p>
 		<p>
 			비밀번호 :
-			<form:input path="password" />
+			<form:password path="password" />
 			<form:errors path="password" cssClass="errs" />
 		</p>
 		<p>
