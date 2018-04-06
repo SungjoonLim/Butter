@@ -44,6 +44,12 @@
 		delete from members
 		where user_id=#{userId}
 	]]></delete>
+	
+	<delete id="changePassword" parameterType="Password"><![CDATA[
+		update members set
+			password=#{newPassword}
+		where user_id=#{userId} and password=#{oldPassword}
+	]]></delete>
 </mapper>	
 
 

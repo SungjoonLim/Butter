@@ -16,5 +16,4 @@ public interface BaseDao<M,K> {
 	
 	int delete(K k) throws Exception;
 	
-	
 }

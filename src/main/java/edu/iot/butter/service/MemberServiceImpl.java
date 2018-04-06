@@ -8,6 +8,7 @@ import edu.iot.butter.dao.MemberDao;
 import edu.iot.butter.exception.LoginFailException;
 import edu.iot.butter.model.Login;
 import edu.iot.butter.model.Member;
+import edu.iot.butter.model.Password;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService {
@@ -49,6 +50,15 @@ public class MemberServiceImpl implements MemberService {
 		Member member = dao.selectOne(userId);
 		return member;
 	}
+
+	@Transactional
+	@Override
+	public boolean changePassword(Password password) throws Exception {
+		int result = dao.changePassword(password);
+		return result==1;
+	}
+	
+	
 	
 	
 	

@@ -27,6 +27,7 @@ public class Member implements Serializable{
 	@Length(min=4, message="4글자 이상 입력하세요!")
 	private String password;
 	
+	@NotEmpty(message="이메일 입력 필수!")
 	@Email(message="이메일 형식에 맞추세요!")
 	private String email;
 	
@@ -34,7 +35,9 @@ public class Member implements Serializable{
 	@Length(min=10, message="10글자 이상 입력하세요!")
 	private String cellPhone;
 	
+	@NotEmpty(message="주소 입력 필수!")
 	private String address;
+	
 	private Date regDate;
 	private Date updateDate;
 }

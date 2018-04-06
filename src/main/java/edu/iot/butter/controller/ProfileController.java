@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import edu.iot.butter.model.Member;
+import edu.iot.butter.model.Password;
 import edu.iot.butter.service.MemberService;
 
 @Controller
@@ -48,11 +49,26 @@ public class ProfileController {
 		session.setAttribute("USER", member);
 		return "redirect:profile";
 	}
+
+	@RequestMapping(value="/changePassword", method=RequestMethod.GET)
+	public void changePasswordForm(Password password, Model model) throws Exception{
 	
-	@RequestMapping("/changePassword")
-	public void changePassword(Model model) {
+	}
+	
+	@RequestMapping(value="/changePassword", method=RequestMethod.POST)
+	public String changePasswordSubmit(@Valid Password password,
+										BindingResult result) throws Exception{
+		if(result.hasErrors()) return "member/changePassword";
+		
+		//정보수정 처리
+		if(!service.changePassword(password)) {
+			result.reject("updateFail","비밀번호가 일치하지 않습니다.");
+			return "member/changePassword";
+		}
+		return "redirect:profile";
 		
 	}
+	
 	
 	
 	@RequestMapping("/quit")
