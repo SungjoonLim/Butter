@@ -12,7 +12,7 @@
 
 <script>
 	$(function(){
-		/* $.get("checkId") */
+		
 	});
 </script>
 

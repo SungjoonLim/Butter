@@ -23,8 +23,8 @@
 	color: white;
 }
 
-ul > li{
-	hover:pointer;
+ul>li {
+	hover: pointer;
 }
 </style>
 
@@ -35,14 +35,20 @@ ul > li{
 		</ul>
 	</div>
 	<div id="right-menu">
-		<ul>
-			<li>
-				<a href="${root}join"><i class="fa fa-user"></i>&nbsp;회원가입</a>
-			</li>
-			<li>
-				<a href="${root}login"><i class="fa fa-sign-in-alt"></i>&nbsp;로그인</a>
-			</li>
-		</ul>
+		<c:choose>
+			<c:when test="${empty USER}">
+				<ul>
+					<li><a href="${root}join"><i class="fa fa-user"></i>&nbsp;회원가입</a></li>
+					<li><a href="${root}login"><i class="fa fa-sign-in-alt"></i>&nbsp;로그인</a></li>
+				</ul>
+			</c:when>
+			<c:otherwise>
+				<ul>
+					<li><a href="${root}member/profile"><i class="fa fa-sign-in-alt"></i> ${USER.userId}&nbsp;정보수정</a></li>
+					<li><a href="${root}logout"><i class="fa fa-sign-out-alt"></i>&nbsp;로그아웃</a></li>
+				</ul>
+			</c:otherwise>
+		</c:choose>
 	</div>
 </div>
 <hr />
