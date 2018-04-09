@@ -23,15 +23,24 @@
 	</thead>
 
 	<tbody>
+		<fmt:formatDate value="${today}" pattern="yyyy-MM-dd" var="todayStr"/>
 		<c:forEach var="member" items="${list}" varStatus="status">
+			<fmt:formatDate value="${member.regDate}" 
+							pattern="yyyy-MM-dd" var="regDate"/>
 			<tr>
 				<td>${pagination.start+status.index}</td>
-				<td>${member.userId}</td>
+				<td>
+					<a href="view/${member.userId}">${member.userId}</a>
+					<c:if test="${todayStr==regDate}">
+						<span class="badge badge-danger">
+							<i class="fa fa-tag"></i>
+							New</span>
+					</c:if>
+				</td>
 				<td>${member.name}</td>
 				<td>${member.email}</td>
-				<td>${member.cellPhone}</td>
-				<td><fmt:formatDate value="${member.regDate}"
-						pattern="yyyy-MM-dd" /></td>
+				<td>${member.cellPhone}<s/td>
+				<td>${member.regDate}</td>
 			</tr>
 		</c:forEach>
 	</tbody>
