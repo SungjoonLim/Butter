@@ -1,5 +1,7 @@
 package edu.iot.butter.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +10,7 @@ import edu.iot.butter.dao.MemberDao;
 import edu.iot.butter.exception.LoginFailException;
 import edu.iot.butter.model.Login;
 import edu.iot.butter.model.Member;
+import edu.iot.butter.model.Pagination;
 import edu.iot.butter.model.Password;
 
 @Service("memberService")
@@ -57,11 +60,17 @@ public class MemberServiceImpl implements MemberService {
 		int result = dao.changePassword(password);
 		return result==1;
 	}
-	
-	
-	
-	
-	
+
+	@Override
+	public Pagination getPagination(int page) throws Exception {
+		int total=123;
+		return new Pagination(page,total);
+	}
+
+	@Override
+	public List<Member> getList(Pagination pagination) throws Exception {
+		return dao.selectList(pagination);
+	}
 	
 
 }

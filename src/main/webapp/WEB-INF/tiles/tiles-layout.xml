@@ -19,8 +19,15 @@
 	<definition name="home" extends="default">
 		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
 	</definition>
+	<definition name="*" extends="default">
+		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
+	</definition>
 	<definition name="*/*" extends="default">
 		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
 	</definition>
+	<definition name="admin/*/*" extends="default">
+		<put-attribute name="body" value="/WEB-INF/views/admin/{1}/{2}.jsp" />
+	</definition>
+
 </tiles-definitions>
 

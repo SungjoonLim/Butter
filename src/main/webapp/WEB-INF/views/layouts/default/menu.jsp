@@ -30,8 +30,22 @@ ul>li {
 
 <div class="menu">
 	<div id="left-menu">
-		<ul class=".list-inline">
-			<li><a href="${root}"><i class="fa fa-home"></i>HOME</a></li>
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="${root}"><i class="fa fa-home"></i>HOME</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="${root}gallery/lightbox">
+					<i class="fa fa-images"></i>GALLERY</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="${root}gallery/flickr">
+					<i class="fa fa-images"></i>Flickr</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="${root}admin/member/list">
+					회원관리</a>
+			</li>
 		</ul>
 	</div>
 	<div id="right-menu">

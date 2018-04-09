@@ -1,12 +1,13 @@
 package edu.iot.butter.dao;
 
 import java.util.List;
-import java.util.Map;
+
+import edu.iot.butter.model.Pagination;
 
 public interface BaseDao<M,K> {
 	int getCount() throws Exception;
 	
-	List<M> selectList(Map map) throws Exception;
+	List<M> selectList(Pagination pagination) throws Exception;
 	
 	M selectOne(K k) throws Exception;
 	

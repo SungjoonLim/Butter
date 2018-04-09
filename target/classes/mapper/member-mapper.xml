@@ -9,7 +9,7 @@
 	]]></select>
 	
 	<select id="selectList" resultType="Member" 
-					parameterType="map"><![CDATA[
+					parameterType="Pagination"><![CDATA[
 		select user_id, name, password, cell_phone, email,
 				address, grade, reg_date, update_date from (
 			select row_number() over (order by user_id) as seq,
