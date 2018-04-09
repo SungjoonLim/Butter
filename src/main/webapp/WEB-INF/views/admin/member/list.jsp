@@ -39,7 +39,7 @@
 				</td>
 				<td>${member.name}</td>
 				<td>${member.email}</td>
-				<td>${member.cellPhone}<s/td>
+				<td>${member.cellPhone}</td>
 				<td>${member.regDate}</td>
 			</tr>
 		</c:forEach>

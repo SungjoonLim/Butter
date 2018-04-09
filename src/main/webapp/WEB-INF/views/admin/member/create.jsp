@@ -1,20 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<!--  material design bootstrap stylesheet -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.5/css/mdb.min.css" />
-
 <style>
-	.error{
-		color:red;
-	}
+.error {
+	color: red;
+}
 </style>
 
 <script>
 	$(function() {
-		$('#checkId-btn').click(function(e) {
+		$('#check-btn').click(function(e) {
 			e.preventDefault();
 			//중복체크
 			var userId = $('#userId').val();
@@ -22,20 +22,19 @@
 				alert("사용할 아이디를 입력하세요");
 				return;
 			}
-			
+
 			<c:url value="/idcheck" var="idcheck"/>
 			$.get('idcheck', {userId : userId}, function(data) {
 				console.log(typeof data);
 				console.log(data);
-
-				if (data == false) {
-					$(':submit').prop('disable', false);
+				if (!data) {
+					$(':submit').prop('disabled', false);
 					$('#check-message').removeClass('error')
-						.html("아이디 사용가능!");
+								.html("아이디 사용가능!");
 				} else {
-					$(':submit').prop('disable', true);
+					$(':submit').prop('disabled', true);
 					$('#check-message').addClass('error')
-						.html("아이디 중복!");
+								.html("아이디 중복!");
 				}
 			});
 		});
@@ -53,16 +52,22 @@
 </script>
 
 <h3>
-	<i class="fa fa-user"></i>&nbsp;회원가입
+	<i class="fa fa-user"></i>&nbsp;회원추가
 </h3>
 <form:form commandName="member">
 	<p>
 		사용자 ID :
 		<form:input path="userId" />
 		<form:errors path="userId" element="div" cssClass="errs" />
-		<a id="checkId-btn" class="btn-floating btn btn-primary btn-sm">
-			아이디 중복체크 </a> <span id="check-message"></span>
 	</p>
+	
+	<div class="md=form">
+		<a id="check-btn"
+			class="btn-floating btn btn-primary btn-sm">중복 확인</a>
+       	<span id="check-message"></span>
+	</div>
+	
+	
 	<p>
 		이름 :
 		<form:input path="name" />
@@ -98,10 +103,16 @@
 	<div class="md-form text-center">
 		<button type="submit" class="btn btn-primary" disabled>
 			<i class="fa fa-check"></i> 확인
-		</button>		
-		<a href="javascript:history.back()" class="btn btn-primary">
+		</button>
+<!--
+ 		<a href="javascript:history.back()" class="btn btn-primary">
 			<i class="fa fa-list"></i> 목록
 		</a>
+-->
+		<a href="list?page=${param.page}" class="btn btn-primary">
+			<i class="fa fa-list"></i> 목록
+         </a>
+		
 	</div>
 	<form:errors />
 </form:form>

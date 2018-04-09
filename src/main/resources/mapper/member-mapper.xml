@@ -12,7 +12,7 @@
 					parameterType="Pagination"><![CDATA[
 		select user_id, name, password, cell_phone, email,
 				address, grade, reg_date, update_date from (
-			select row_number() over (order by user_id) as seq,
+			select row_number() over (order by reg_date desc) as seq,
 				user_id, name, password, cell_phone, email, 
 				address, grade, reg_date, update_date from members
 		) where seq between #{start} and #{end}
@@ -40,15 +40,30 @@
 		where user_id=#{userId} and password=#{password}
 	]]></update>
 	
-	<delete id="delete" parameterType="String"><![CDATA[
-		delete from members
+	<update id="updateByAdmin" parameterType="Member"><![CDATA[
+		update members set
+			cell_phone=#{cellPhone},
+			email=#{email},
+			address=#{address},
+			update_date=sysdate
 		where user_id=#{userId}
-	]]></delete>
+	]]></update>
 	
-	<delete id="changePassword" parameterType="Password"><![CDATA[
+	<update id="changePassword" parameterType="Password"><![CDATA[
 		update members set
 			password=#{newPassword}
 		where user_id=#{userId} and password=#{oldPassword}
+	]]></update>
+	
+	<update id="changePasswordByAdmin" parameterType="Password"><![CDATA[
+		update members set
+			password=#{newPassword}
+		where user_id=#{userId}
+	]]></update>
+	
+	<delete id="delete" parameterType="String"><![CDATA[
+		delete from members
+		where user_id=#{userId}
 	]]></delete>
 </mapper>	
 

@@ -18,4 +18,8 @@ public interface MemberService {
 	
 	Pagination getPagination(int page) throws Exception;
 	List<Member> getList(Pagination pagination) throws Exception;
+	
+	//관리자만 호출하는 메서드
+	boolean updateByAdmin(Member member) throws Exception;
+	boolean changePasswordByAdmin(Password password) throws Exception;
 }

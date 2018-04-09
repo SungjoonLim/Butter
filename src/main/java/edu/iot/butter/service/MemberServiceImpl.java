@@ -30,35 +30,30 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public boolean checkId(String userId) throws Exception {
-		Member m = dao.selectOne(userId);
-		return m != null;
+		return dao.selectOne(userId) != null;
 	}
 
 	@Transactional
 	@Override
 	public boolean add(Member member) throws Exception {
-		int result = dao.insert(member);
-		return result==1;
+		return dao.insert(member)==1;
 	}
 
 	@Transactional
 	@Override
 	public boolean update(Member member) throws Exception {
-		int result = dao.update(member);
-		return result==1;
+		return dao.update(member)==1;
 	}
 
 	@Override
 	public Member getMember(String userId) throws Exception {
-		Member member = dao.selectOne(userId);
-		return member;
+		return dao.selectOne(userId);
 	}
 
 	@Transactional
 	@Override
 	public boolean changePassword(Password password) throws Exception {
-		int result = dao.changePassword(password);
-		return result==1;
+		return dao.changePassword(password)==1;
 	}
 
 	@Override
@@ -73,4 +68,16 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 
+	@Transactional
+	@Override
+	public boolean updateByAdmin(Member member) throws Exception {
+		return dao.updateByAdmin(member)==1;
+	}
+	
+	@Transactional
+	@Override
+	public boolean changePasswordByAdmin(Password password)
+			throws Exception {
+		return dao.changePasswordByAdmin(password)==1;
+	}
 }
