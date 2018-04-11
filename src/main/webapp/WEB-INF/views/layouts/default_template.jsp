@@ -43,9 +43,6 @@ $(function(){
 
 <body>
 	<div class="container">
-		<header>
-			<tiles:insertAttribute name="header"/>
-		</header>
 		<nav>
 			<tiles:insertAttribute name="menu"/>
 		</nav>

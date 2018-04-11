@@ -12,9 +12,10 @@
 </style>
 
 <h3>Gallery</h3>
-<a href="gallery?mode=lightbox" 
+<a href="lightbox?page=${param.page}" 
 	class="btn btn-primary btn-sm">lightbox ver.</a>
 <hr />
+
 
 <div id="demo" class="carousel slide" data-ride="carousel">
 	<!-- Indicators -->

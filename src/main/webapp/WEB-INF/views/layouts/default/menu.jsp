@@ -3,66 +3,56 @@
 <c:url value="/" var="root" />
 
 <style>
-.menu {
-	background: navy;
-	padding: 5px 20px;
-	overflow: hidden;
-}
-
-#left-menu {
-	float: left;
-	color: white;
-}
-
-#right-menu {
-	float: right;
-	color: white;
-}
-
-.menu div a {
-	color: white;
-}
-
-ul>li {
-	hover: pointer;
+.navbar {
+	z-index: 1;
 }
 </style>
 
-<div class="menu">
-	<div id="left-menu">
-		<ul class="navbar-nav mr-auto">
-			<li class="nav-item">
-				<a class="nav-link" href="${root}"><i class="fa fa-home"></i>HOME</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="${root}gallery/lightbox">
-					<i class="fa fa-images"></i>GALLERY</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="${root}gallery/flickr">
-					<i class="fa fa-images"></i>Flickr</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="${root}admin/member/list">
-					회원관리</a>
-			</li>
-		</ul>
+<!--Main Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark black">
+	<div class="container">
+		<a class="navbar-brand" href="#"><i class="fa fa-bars"></i>&nbsp;<strong>BuTTer</strong></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="float-left" id="left-menu">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link" href="${root}"><i
+						class="fa fa-home"></i>&nbsp;Home <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item"><a class="nav-link"
+					href="${root}gallery/lightbox"> <i class="fa fa-images"></i>&nbsp;GALLERY</a>
+				</li>
+				<li class="nav-item"><a class="nav-link"
+					href="${root}gallery/flickr"> <i class="fa fa-images"></i>&nbsp;Flickr</a>
+				</li>
+				<li class="nav-item"><a class="nav-link"
+					href="${root}admin/member/list"> &nbsp;회원관리</a>
+				</li>
+			</ul>
+		</div>
+		<div class="float-right" id="right-menu">
+			<c:choose>
+				<c:when test="${empty USER}">
+					<ul class="nav navbar-nav nav-flex-icons ml-auto">
+						<li class="nav-item"><a href="${root}join"><i class="fa fa-user"></i>&nbsp;회원가입</a></li>&nbsp;&nbsp;
+						<li class="nav-item"><a href="${root}login"><i class="fa fa-sign-in-alt"></i>&nbsp;로그인</a></li>
+					</ul>
+				</c:when>
+				<c:otherwise>
+					<ul class="nav navbar-nav nav-flex-icons ml-auto">
+						<li class="nav-item"><a href="${root}member/profile"><i class="fa fa-user"></i>&nbsp;${USER.userId}님</a></li>&nbsp;&nbsp;
+						<li class="nav-item"><a href="${root}logout"><i class="fa fa-sign-out-alt"></i>&nbsp;로그아웃</a></li>
+					</ul>
+				</c:otherwise>
+			</c:choose>
+		</div>
+
 	</div>
-	<div id="right-menu">
-		<c:choose>
-			<c:when test="${empty USER}">
-				<ul>
-					<li><a href="${root}join"><i class="fa fa-user"></i>&nbsp;회원가입</a></li>
-					<li><a href="${root}login"><i class="fa fa-sign-in-alt"></i>&nbsp;로그인</a></li>
-				</ul>
-			</c:when>
-			<c:otherwise>
-				<ul>
-					<li><a href="${root}member/profile"><i class="fa fa-user"></i>&nbsp;&nbsp;${USER.userId}님</a></li>
-					<li><a href="${root}logout"><i class="fa fa-sign-out-alt"></i>&nbsp;로그아웃</a></li>
-				</ul>
-			</c:otherwise>
-		</c:choose>
-	</div>
-</div>
+</nav>
+
+<!--Main Navigation-->
 <hr />

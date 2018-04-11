@@ -24,7 +24,7 @@
 			}
 
 			<c:url value="/idcheck" var="idcheck"/>
-			$.get('idcheck', {userId : userId}, function(data) {
+			$.get('${idcheck}', {userId : userId}, function(data) {
 				console.log(typeof data);
 				console.log(data);
 				if (!data) {
