@@ -3,21 +3,86 @@
 <c:url value="/" var="root" />
 
 <style>
-.navbar {
+/* .navbar {
 	z-index: 1;
-}
+} */
+
 </style>
 
 <!--Main Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark black">
-	<div class="container">
-		<a class="navbar-brand" href="#"><i class="fa fa-bars"></i>&nbsp;<strong>BuTTer</strong></a>
+	<!-- <div class="container"> -->
+		<!-- Collapse button -->
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
-			data-target="#navbarSupportedContent"
-			aria-controls="navbarSupportedContent" aria-expanded="false"
-			aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
+						data-target="#basicExampleNav" aria-controls="basicExampleNav"
+     					aria-expanded="false" aria-label="Toggle navigation">
+     					<span class="navbar-toggler-icon"></span>
 		</button>
+		<div>
+			<a class="navbar-brand" href="${root}">
+				<!-- <i class="fa fa-bars"></i> -->
+				<strong> BuTTer</strong>
+			</a>
+		</div>
+		
+		<!-- Collapsible content -->
+    	<div class="collapse navbar-collapse" id="basicExampleNav">
+    		<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="${root}gallery/lightbox">
+						<i class="fa fa-images"></i> GALLERY</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="${root}gallery/flickr">
+						<i class="fa fa-meh"></i> Flickr</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="${root}board/list">
+						<i class="fa fa-bullseye"></i> Board</a>
+				</li>
+				<c:if test="${USER.userId eq 'admin'}">
+					<li class="nav-item">
+						<a class="nav-link" href="${root}admin/member/list">
+							<i class="fa fa-address-book"></i> 회원관리</a>
+					</li>
+				</c:if>
+			</ul>
+    	</div>
+		
+		<div class="float-right" id="right-menu">
+			<c:choose>
+				<c:when test="${empty USER}">
+					<ul class="nav navbar-nav nav-flex-icons ml-auto">
+						<li class="nav-item">
+							<a href="${root}join"><i class="fa fa-user"></i> 회원가입</a>
+						</li>
+						<li class="nav-item"><a href="${root}login">
+							<i class="fa fa-sign-in-alt"></i> 로그인</a>
+						</li>
+					</ul>
+				</c:when>
+				<c:otherwise>
+					<ul class="nav navbar-nav nav-flex-icons ml-auto">
+						<li class="nav-item">
+							<a href="${root}member/profile">
+								<i class="fa fa-user"></i> ${USER.userId}님
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="${root}logout">
+								<i class="fa fa-sign-out-alt"></i> 로그아웃
+							</a>
+						</li>
+					</ul>
+				</c:otherwise>
+			</c:choose>
+		</div>
+		
+		
+		
+		
+		
+		<%-- 
 		<div class="float-left" id="left-menu">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active"><a class="nav-link" href="${root}"><i
@@ -34,24 +99,39 @@
 				</li>
 			</ul>
 		</div>
+		--%><%-- 
 		<div class="float-right" id="right-menu">
 			<c:choose>
 				<c:when test="${empty USER}">
 					<ul class="nav navbar-nav nav-flex-icons ml-auto">
-						<li class="nav-item"><a href="${root}join"><i class="fa fa-user"></i>&nbsp;회원가입</a></li>&nbsp;&nbsp;
-						<li class="nav-item"><a href="${root}login"><i class="fa fa-sign-in-alt"></i>&nbsp;로그인</a></li>
+						<li class="nav-item">
+							<a href="${root}join"><i class="fa fa-user"></i> 회원가입</a>
+						</li>
+						&nbsp;&nbsp;
+						<li class="nav-item"><a href="${root}login">
+							<i class="fa fa-sign-in-alt"></i> 로그인</a>
+						</li>
 					</ul>
 				</c:when>
 				<c:otherwise>
 					<ul class="nav navbar-nav nav-flex-icons ml-auto">
-						<li class="nav-item"><a href="${root}member/profile"><i class="fa fa-user"></i>&nbsp;${USER.userId}님</a></li>&nbsp;&nbsp;
-						<li class="nav-item"><a href="${root}logout"><i class="fa fa-sign-out-alt"></i>&nbsp;로그아웃</a></li>
+						<li class="nav-item">
+							<a href="${root}member/profile">
+								<i class="fa fa-user"></i> ${USER.userId}님
+							</a>
+						</li>
+						&nbsp;&nbsp;
+						<li class="nav-item">
+							<a href="${root}logout">
+								<i class="fa fa-sign-out-alt"></i> 로그아웃
+							</a>
+						</li>
 					</ul>
 				</c:otherwise>
 			</c:choose>
 		</div>
-
-	</div>
+ --%>
+	<!-- </div> -->
 </nav>
 
 <!--Main Navigation-->
