@@ -30,7 +30,9 @@ public class SensorApiController {
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public boolean insert(@RequestBody Sensor sensor) {
+		System.out.println(sensor);
 		return service.insert(sensor);
+//		return true;
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.PUT)

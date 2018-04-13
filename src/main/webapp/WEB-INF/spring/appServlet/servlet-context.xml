@@ -55,4 +55,18 @@
 		error/database_error </beans:prop> <beans:prop key="org.springframework.dao.DataAccessException"> 
 		error/database_error </beans:prop> </beans:props> </beans:property> </beans:bean> -->
 
+	<interceptors>
+		<interceptor>
+			<mapping path="/admin/*" />
+			<mapping path="/gallery/*" />
+			<mapping path="/member/*" />
+			<mapping path="/board/create" />
+			<beans:ref bean="loginInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/admin/*" />
+			<beans:ref bean="adminInterceptor" />
+		</interceptor>
+	</interceptors>
+
 </beans:beans>

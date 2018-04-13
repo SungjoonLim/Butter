@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,7 +28,9 @@ public class AccountController {
 	MemberService service;
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String loginForm(Login login) {
+	public String loginForm(Login login,
+							@ModelAttribute("url") String url) {
+		login.setUrl(url);
 		return "account/login";
 	}
 
@@ -44,6 +47,9 @@ public class AccountController {
 			return "account/login";
 		}*/
 		session.setAttribute("USER", member);
+		String url=login.getUrl();
+		if(url!=null && !url.isEmpty()) return "redirect:"+url;
+		
 		return "redirect:/";
 	}
 	

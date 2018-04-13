@@ -18,8 +18,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import edu.iot.butter.model.Attachment;
 import edu.iot.butter.model.Board;
+import edu.iot.butter.model.Comment;
 import edu.iot.butter.model.Pagination;
 import edu.iot.butter.service.BoardService;
+import edu.iot.butter.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -101,6 +103,24 @@ public class BoardController {
 		//첨부파일 삭제
 		return service.deleteAttachment(attachmentId);
 	}
+	
+	
+
+//	@Autowired
+//	CommentService commentService;
+//	
+//	@RequestMapping(value = "/view/{boardId}", method = RequestMethod.GET)
+//	public String view(@RequestParam(value = "page", defaultValue = "1") int page, 
+//	   				@PathVariable int boardId, Model model) throws Exception {
+//		Board board = service.getBoard(boardId);
+//		Pagination pagination = commentService.getPagination(page);
+//		List<Comment> list = commentService.getList(pagination);
+//		log.debug(list.toString()+"---------------------------------------------------------------");
+//		model.addAttribute("board", board);
+//		model.addAttribute("pagination", pagination);
+//		model.addAttribute("list", list);
+//		return "board/view";
+//	}
 }
 
 

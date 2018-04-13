@@ -16,11 +16,21 @@
 	});
 </script>
 
+<div class="login-form">
+	<c:if test="${not empty login.url}">
+		<div class="mt-4 mb-4">
+			<h4>
+				로그인이 필요한 서비스 입니다. 로그인 하세요.
+			</h4>
+		</div>
+	</c:if>
+	
 	<h3>
-		<i class="fa fa-sign-in-alt"></i>&nbsp;로그인
+		<i class="fa fa-sign-in-alt"></i> 로그인
 	</h3>
 	<div id="container">
 	<form:form commandName="login">
+		<%-- <form:hidden path="url"/> --%>
 		<p>
 			<input type="hidden" name="url" value="${url}">
 		</p>
@@ -40,3 +50,5 @@
 		<form:errors cssClass="errs" />
 	</form:form>
 	</div>
+
+</div>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.iot.butter.dao.CommentDao">
+
+	<select id="getCount" resultType="int">
+		SELECT count(*)
+		FROM comments
+	</select>
+
+	<select id="selectOne" parameterType="int" resultType="Comment">
+		select *
+		from comments
+		where comment_id=#{commentId}
+	</select>
+
+	<select id="selectList" parameterType="Pagination" resultType="Comment">
+	<![CDATA[
+        SELECT COMMENT_ID, WRITER, CONTENT, REG_DATE, COMMENT_REF, COMMENT_LEVEL, BOARD_ID
+        FROM
+            (SELECT rownum AS SEQ, COMMENT_ID, WRITER, CONTENT, REG_DATE,
+                 COMMENT_REF, COMMENT_LEVEL, BOARD_ID
+             FROM COMMENTS
+             START WITH COMMENT_REF IS 0
+             CONNECT BY PRIOR COMMENT_ID = COMMENT_REF)
+        WHERE SEQ BETWEEN #{start} AND #{end};
+    ]]>
+	</select>
+
+	<!--nextval (인덱스) 정보 사용하겠다, 컬럼명, Board 모델에 대응하는 프로퍼티명 -->
+	<insert id="insert" parameterType="Comment">
+		insert into comments
+		(comment_id, content, writer, reg_date, file_name, comment_ref, comment_level, board_id)
+		values(comments_seq.nextval, #{content}, #{writer}, sysdate,
+		#{fileName}, #{commentRef}, #{commentLevel}, #{boardId} )
+	</insert>
+
+	<!-- 게시글 수정 -->
+	<update id="update" parameterType="Comment">
+		update comments set
+		content = #{content},
+		file_name = #{fileName}
+		where comment_id=#{commentId}
+	</update>
+
+	<!-- -->
+	<delete id="delete" parameterType="int">
+		delete from boards
+		where board_id=#{boardId} and writer=#{writer}
+	</delete>
+
+</mapper>
