@@ -30,107 +30,83 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardController {
 	@Autowired
 	BoardService service;
-	
+
+	@Autowired
+	CommentService commentService;
+
 	@RequestMapping("/list")
-	public void list(@RequestParam(value="page", defaultValue="1")int page,
-						Model model) throws Exception {
+	public void list(@RequestParam(value = "page", defaultValue = "1") int page, Model model) throws Exception {
 		Pagination pagination = service.getPagination(page);
 		List<Board> list = service.getList(pagination);
-		model.addAttribute("pagination",pagination);
-		model.addAttribute("list",list);
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("list", list);
 	}
-	
-	@RequestMapping(value="/create", method=RequestMethod.GET)
-	public void createForm(Board board) {}
-	
-	@RequestMapping(value="/create", method=RequestMethod.POST)
-	public String createSubmit(@Valid Board board, BindingResult result,
-							MultipartHttpServletRequest request) throws Exception {
-		if(result.hasErrors()) {
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public void createForm(Board board) {
+	}
+
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	public String createSubmit(@Valid Board board, BindingResult result, MultipartHttpServletRequest request)
+			throws Exception {
+		if (result.hasErrors()) {
 			System.out.println(result);
 			return "board/create";
 		}
-		
+
 		List<MultipartFile> attachments = request.getFiles("files");
-		if(!service.create(board, attachments)) return "board/create";
-		
+		if (!service.create(board, attachments))
+			return "board/create";
+
 		return "redirect:list";
 	}
-	
-	@RequestMapping(value="/view/{boardId}", method=RequestMethod.GET)
-	public String view(@PathVariable int boardId, Model model) throws Exception{
+
+	@RequestMapping(value = "/view/{boardId}", method = RequestMethod.GET)
+	public String view(@PathVariable int boardId, Model model) throws Exception {
 		Board board = service.getBoard(boardId);
-		model.addAttribute("board",board);
+//		int commentTotal = commentService.getCount(boardId);
+		model.addAttribute("board", board);
 		return "board/view";
 	}
-	
-	@RequestMapping(value="/download/{attachmentId}",method=RequestMethod.GET)
-	public String download(@PathVariable int attachmentId, Model model) throws Exception{
+
+	@RequestMapping(value = "/download/{attachmentId}", method = RequestMethod.GET)
+	public String download(@PathVariable int attachmentId, Model model) throws Exception {
 		Attachment file = service.getAttachment(attachmentId);
-		
-		String path="c:/temp/upload/"+file.getLocation();
-		model.addAttribute("type","application/octet-stream");
-		model.addAttribute("path",path);
+
+		String path = "c:/temp/upload/" + file.getLocation();
+		model.addAttribute("type", "application/octet-stream");
+		model.addAttribute("path", path);
 		model.addAttribute("fileName", file.getFileName());
-		
+
 		return "download";
 	}
-	
-	@RequestMapping(value="/edit/{boardId}", method=RequestMethod.GET)
-	public String editForm(@PathVariable int boardId, Model model) throws Exception{
+
+	@RequestMapping(value = "/edit/{boardId}", method = RequestMethod.GET)
+	public String editForm(@PathVariable int boardId, Model model) throws Exception {
 		Board board = service.getBoard(boardId);
-		model.addAttribute("board",board);
+		model.addAttribute("board", board);
 		return "board/edit";
 	}
-	
-	@RequestMapping(value="/edit/{boardId}", method=RequestMethod.POST)
-	public String editSubmit(@Valid Board board, BindingResult result,
-							MultipartHttpServletRequest request) throws Exception{
-		if(result.hasErrors()) return "board/edit";
+
+	@RequestMapping(value = "/edit/{boardId}", method = RequestMethod.POST)
+	public String editSubmit(@Valid Board board, BindingResult result, MultipartHttpServletRequest request)
+			throws Exception {
+		if (result.hasErrors())
+			return "board/edit";
 		List<MultipartFile> attachments = request.getFiles("files");
-		if(!service.update(board, attachments)) {
-			result.reject("updateFail","비밀번호가 일치하지 않습니다.");
-			 return "board/edit";
+		if (!service.update(board, attachments)) {
+			result.reject("updateFail", "비밀번호가 일치하지 않습니다.");
+			return "board/edit";
 		}
 		return "redirect:/board/list";
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value="/delete_attachment/{attachmentId}",
-						method=RequestMethod.DELETE)
-	public boolean delete(@PathVariable int attachmentId) throws Exception{
-//		System.out.println(attachmentId);
-		//첨부파일 삭제
+	@RequestMapping(value = "/delete_attachment/{attachmentId}", method = RequestMethod.DELETE)
+	public boolean delete(@PathVariable int attachmentId) throws Exception {
+		// System.out.println(attachmentId);
+		// 첨부파일 삭제
 		return service.deleteAttachment(attachmentId);
 	}
-	
-	
 
-//	@Autowired
-//	CommentService commentService;
-//	
-//	@RequestMapping(value = "/view/{boardId}", method = RequestMethod.GET)
-//	public String view(@RequestParam(value = "page", defaultValue = "1") int page, 
-//	   				@PathVariable int boardId, Model model) throws Exception {
-//		Board board = service.getBoard(boardId);
-//		Pagination pagination = commentService.getPagination(page);
-//		List<Comment> list = commentService.getList(pagination);
-//		log.debug(list.toString()+"---------------------------------------------------------------");
-//		model.addAttribute("board", board);
-//		model.addAttribute("pagination", pagination);
-//		model.addAttribute("list", list);
-//		return "board/view";
-//	}
 }
-
-
-
-
-
-
-
-
-
-
-
-

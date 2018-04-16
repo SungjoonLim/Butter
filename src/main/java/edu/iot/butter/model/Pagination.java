@@ -10,6 +10,7 @@ public class Pagination {
 	public final int PER_BLOCK;		//1블록당 페이지 수
 	
 	// ======== 외부에서 선언됨 ==============================
+	private int boardId;			// 게시글 번호
 	private int totalCount;			// 전체 데이터 건 수
 	private int page;				// 현재 페이지
 	// =================================================

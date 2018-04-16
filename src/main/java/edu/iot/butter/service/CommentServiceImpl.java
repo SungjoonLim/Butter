@@ -10,40 +10,48 @@ import edu.iot.butter.model.Comment;
 import edu.iot.butter.model.Pagination;
 
 @Service
-public class CommentServiceImpl implements CommentService{
-	 @Autowired
-	   CommentDao dao;
-	   
-	   @Override
-	   public Pagination getPagination(int page) throws Exception {
-	      int total = dao.getCount();
-	      Pagination pagination = new Pagination(page, total, 20, 5);  //perpage, preblock
-	      return pagination;
-	   }
+public class CommentServiceImpl implements CommentService {
+	@Autowired
+	CommentDao dao;
 
-	   @Override
-	   public List<Comment> getList(Pagination pagination) throws Exception {
-	      return dao.selectList(pagination);
-	   }
+	@Override
+	public Pagination getPagination(int page, int boardId) throws Exception {
+		int total = dao.getCount(boardId);
+		Pagination pagination = new Pagination(page, total, 10, 5); // perpage, preblock
+		System.out.println("service");
+		System.out.println(pagination);
+		pagination.setBoardId(boardId);
+		return pagination;
+	}
 
-	   @Override
-	   public Comment getComment(int commentId) throws Exception {
-	      return dao.selectOne(commentId);
-	   }
+	@Override
+	public List<Comment> selectList(Pagination pagination) throws Exception {
+		return dao.selectList(pagination);
+	}
 
-	   @Override
-	   public boolean create(Comment comment) throws Exception {
-	      return dao.insert(comment)==1;
-	   }
+	@Override
+	public boolean insert(Comment comment) throws Exception {
+		return dao.insert(comment) == 1;
+	}
 
-	   @Override
-	   public boolean update(Comment comment) throws Exception {
-	      return dao.update(comment)==1;
-	   }
+	@Override
+	public boolean update(Comment comment) throws Exception {
+		return dao.update(comment) == 1;
+	}
 
-	   @Override
-	   public boolean delete(int commentId) throws Exception {
-	      return dao.delete(commentId)==1;
-	   }
+	@Override
+	public boolean delete(int commentId) throws Exception {
+		return dao.delete(commentId) == 1;
+	}
+
+	@Override
+	public Comment selectOne(int commentId) throws Exception {
+		return dao.selectOne(commentId);
+	}
+
+	@Override
+	public int getCount(int boardId) throws Exception {
+		return dao.getCount(boardId);
+	}
 
 }

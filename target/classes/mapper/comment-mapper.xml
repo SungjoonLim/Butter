@@ -4,9 +4,10 @@
 
 <mapper namespace="edu.iot.butter.dao.CommentDao">
 
-	<select id="getCount" resultType="int">
+	<select id="getCount" parameterType="int" resultType="int">
 		SELECT count(*)
 		FROM comments
+		WHERE BOARD_ID = #{boardId}
 	</select>
 
 	<select id="selectOne" parameterType="int" resultType="Comment">
@@ -17,6 +18,34 @@
 
 	<select id="selectList" parameterType="Pagination" resultType="Comment">
 	<![CDATA[
+        SELECT
+            COMMENT_ID,
+            WRITER,
+            CONTENT,
+            REG_DATE,
+            COMMENT_REF,
+            COMMENT_LEVEL,
+            BOARD_ID
+        FROM
+            (SELECT
+                 rownum AS SEQ,
+                 COMMENT_ID,
+                 WRITER,
+                 CONTENT,
+                 REG_DATE,
+                 COMMENT_REF,
+                 COMMENT_LEVEL,
+                 BOARD_ID
+             FROM COMMENTS
+             WHERE BOARD_ID = #{boardId}
+             START WITH COMMENT_REF = 0
+             CONNECT BY PRIOR COMMENT_ID = COMMENT_REF)
+        WHERE SEQ BETWEEN #{start} AND #{end}
+        ]]>
+	
+	</select>
+<!-- 
+	<![CDATA[
         SELECT COMMENT_ID, WRITER, CONTENT, REG_DATE, COMMENT_REF, COMMENT_LEVEL, BOARD_ID
         FROM
             (SELECT rownum AS SEQ, COMMENT_ID, WRITER, CONTENT, REG_DATE,
@@ -26,17 +55,25 @@
              CONNECT BY PRIOR COMMENT_ID = COMMENT_REF)
         WHERE SEQ BETWEEN #{start} AND #{end};
     ]]>
-	</select>
+ -->
+
 
 	<!--nextval (인덱스) 정보 사용하겠다, 컬럼명, Board 모델에 대응하는 프로퍼티명 -->
 	<insert id="insert" parameterType="Comment">
-		insert into comments
-		(comment_id, content, writer, reg_date, file_name, comment_ref, comment_level, board_id)
-		values(comments_seq.nextval, #{content}, #{writer}, sysdate,
-		#{fileName}, #{commentRef}, #{commentLevel}, #{boardId} )
-	</insert>
-
-	<!-- 게시글 수정 -->
+        INSERT INTO COMMENTS
+        (COMMENT_ID, WRITER, CONTENT, COMMENT_REF, COMMENT_LEVEL, BOARD_ID, REG_DATE)
+        VALUES (COMMENTS_SEQ.NEXTVAL, #{writer}, #{content}, 
+        		#{commentRef}, #{commentLevel}, #{boardId}, SYSDATE)
+    </insert>
+<!--
+	<insert id="insert" parameterType="Comment">
+        INSERT INTO COMMENTS
+        (COMMENT_ID, WRITER, CONTENT, COMMENT_REF, COMMENT_LEVEL, BOARD_ID, REG_DATE)
+        VALUES (COMMENTS_SEQ.NEXTVAL, #{writer}, #{content}, #{commentRef}, #{commentLevel}, #{boardId}, SYSDATE)
+    </insert>
+ -->
+<!-- 게시글 수정 -->
+<!-- 
 	<update id="update" parameterType="Comment">
 		update comments set
 		content = #{content},
@@ -44,10 +81,10 @@
 		where comment_id=#{commentId}
 	</update>
 
-	<!-- -->
+	
 	<delete id="delete" parameterType="int">
 		delete from boards
 		where board_id=#{boardId} and writer=#{writer}
 	</delete>
-
+ -->
 </mapper>

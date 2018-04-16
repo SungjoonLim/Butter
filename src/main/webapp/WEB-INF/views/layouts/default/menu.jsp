@@ -56,6 +56,7 @@
 						<li class="nav-item">
 							<a href="${root}join"><i class="fa fa-user"></i> 회원가입</a>
 						</li>
+						&nbsp;&nbsp;&nbsp;
 						<li class="nav-item"><a href="${root}login">
 							<i class="fa fa-sign-in-alt"></i> 로그인</a>
 						</li>
